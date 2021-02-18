@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<db:config name="database-config" doc:name="Database Config"
+		doc:id="c19df5a3-3e62-4cda-8c3b-ab01395558f3">
+		<db:generic-connection
+			url="${secure::database.url}" driverClassName="org.postgresql.Driver"
+			user="${secure::database.username}"
+			password="${secure::database.password}" />
+	</db:config>
+	<configuration-properties
+		doc:name="configuration-properties"
+		doc:id="aeac795f-9c11-4d56-a508-8226fb50c271"
+		file="configs\common.yaml" />
+	<secure-properties:config
+		name="secure-configuration-properties"
+		doc:name="Secure Properties Config"
+		doc:id="037796a8-5540-426d-837a-06c22f5ee754"
+		file="configs/${env}-properties.yaml" key="${encryptionKey}" />
+	<apikit:config name="demo-app-config"
+		api="resource::4d12c9f6-5d25-4573-a6f5-576baa788172:demo-app:1.0.0:raml:zip:demo-app.raml"
+		outboundHeadersMapName="outboundHeaders"
+		httpStatusVarName="httpStatus" />
+	<http:listener-config
+		name="demo-app-http-listener-configuration"
+		basePath="${https.listener.basepath}">
+		<http:listener-connection
+			host="${https.listener.host}" port="${https.listener.port}"
+			tlsContext="tls-context" protocol="HTTPS" />
+	</http:listener-config>
+	<tls:context name="tls-context" doc:name="TLS Context"
+		doc:id="61cd4eec-e623-4073-bfae-73de3028afff">
+		<tls:key-store type="jks"
+			keyPassword="${secure::https.tls.keystore.keypassword}"
+			password="${secure::https.tls.keystore.storepassword}"
+			path="${https.tls.keystore.file}" />
+	</tls:context>
+	<api-gateway:autodiscovery
+		apiId="${secure::api.id}" ignoreBasePath="true"
+		doc:name="API Autodiscovery"
+		doc:id="930afbd8-d4e0-4bb5-9796-546d1a517b82" flowRef="demo-app-main" />
+</mule>
