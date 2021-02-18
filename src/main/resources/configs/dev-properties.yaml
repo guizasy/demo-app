@@ -1,0 +1,13 @@
+api:
+  id: "16638016"
+
+https:
+  tls:
+    keystore:
+      keypassword: "![uAHFZG6pqY76HOCbBTJWAQ==]"
+      storepassword: "![uAHFZG6pqY76HOCbBTJWAQ==]"
+
+database:
+  username: "![Jt7HFSFxlaZvq3D25WRP4g==]"
+  password: "![olzEfCUN3LG9S2V+tMihhEmTLQ8ERZ7O20vnLTsswHw=]"
+  url: "![tL3ZQfR7/Ld67LPYmtCfjyNKZz+19a9fgfR1nR1FTwA/SGRgc1Lfl2JzT26AhYr7]"

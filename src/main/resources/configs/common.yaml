@@ -1,0 +1,45 @@
+api:
+  version: "v1"
+  reference:
+    info: "https://anypoint.mulesoft.com/exchange/85a87ff0-f631-41cb-a6d4-fd13943de56d/splunkordersprocessapi/"
+
+https:
+  listener:
+    host: "0.0.0.0"
+    port: "8082"
+    basepath: "/demo-app"
+    api:
+      path: "/api/${api.version}/*"
+    console:
+      path: "/console/${api.version}/*"
+  tls:
+    keystore:
+      file: "keystore.jks"
+
+responses:
+  success:
+    "200":
+      code: "SUCCESS"
+      message: "Operation Successful"
+  error:
+    "400":
+      code: "BAD_REQUEST"
+      message: ""
+    "404":
+      code: "RESOURCE_NOT_FOUND"
+      message: "Requested resource not available"
+    "405":
+      code: "METHOD_NOT_ALLOWED"
+      message: "Requested HTTP Method is not allowed/supported"
+    "406":
+      code: "NOT_ACCEPTABLE"
+      message: "Requested Accept (Response Media Type) is not supported"
+    "415":
+      code: "UNSUPPORTED_MEDIA_TYPE"
+      message: "Request is not in acceptable format. Please correct and retry"
+    "500":
+      code: "INTERNAL_SERVER_ERROR"
+      message: "An internal error was detected while processing the request. Please try again later."
+    "501":
+      code: "NOT_IMPLEMENTED"
+      message: "Requested resource is not implemented."
