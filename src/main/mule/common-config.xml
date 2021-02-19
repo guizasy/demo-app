@@ -26,7 +26,7 @@
 		doc:id="037796a8-5540-426d-837a-06c22f5ee754"
 		file="configs/${env}-properties.yaml" key="${encryptionKey}" />
 	<apikit:config name="demo-app-config"
-		api="resource::4d12c9f6-5d25-4573-a6f5-576baa788172:demo-app:1.0.1:raml:zip:demo-app.raml"
+		api="resource::4d12c9f6-5d25-4573-a6f5-576baa788172:demo-app:1.0.2:raml:zip:demo-app.raml"
 		outboundHeadersMapName="outboundHeaders"
 		httpStatusVarName="httpStatus" />
 	<http:listener-config
