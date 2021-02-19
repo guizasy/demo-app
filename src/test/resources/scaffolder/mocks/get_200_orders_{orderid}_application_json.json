@@ -1,0 +1,10 @@
+[
+  {
+    "orderId": 1,
+    "itemName": "ryzen",
+    "itemCost": 150.0,
+    "itemCount": 2,
+    "customerName": "Guilherme",
+    "placementDate": "2020-03-18T12:00:00"
+  }
+]

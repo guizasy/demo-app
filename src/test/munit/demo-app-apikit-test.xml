@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd http://www.mulesoft.org/schema/mule/munit-tools http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd 
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<munit:config name="demo-app-apikit-test.xml" />
+	<http:request-config
+		name="http-request-configuration" basePath="/demo-app/api/v1">
+		<http:request-connection host="localhost"
+			port="8082" protocol="HTTPS">
+			<tls:context>
+				<tls:trust-store insecure="true" />
+			</tls:context>
+		</http:request-connection>
+	</http:request-config>
+	<munit:test
+		name="get:\orders\(orderId):demo-app-config-200-application\json-FlowTest"
+		description="Verifying functionality of [get:\orders\(orderId):demo-app-config-500-application\json]">
+		<munit:enable-flow-sources>
+			<munit:enable-flow-source
+				value="demo-app-main" />
+			<munit:enable-flow-source
+				value="get:\orders\(orderId):demo-app-config" />
+		</munit:enable-flow-sources>
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Database"
+				doc:id="f43f7975-faf4-4ca1-8eab-43a30b376d4a" processor="db:select">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute
+						whereValue="a4ea7d71-31a1-4f2b-b828-17f75a58d7cf"
+						attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:payload
+						value="#[readUrl('classpath://scaffolder/mocks/get_200_orders_{orderid}_application_json.json')]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<set-variable variableName="orderId" value="#['1']"
+				doc:name="orderId" />
+			<http:request config-ref="http-request-configuration"
+				method="GET" path="#['/orders/$(vars.orderId)']">
+				<http:headers><![CDATA[#[{"Accept":"application/json"}]]]></http:headers>
+				<http:response-validator>
+					<http:success-status-code-validator
+						values="200" />
+				</http:response-validator>
+			</http:request>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that
+				expression="#[attributes.statusCode]"
+				is="#[MunitTools::equalTo(200)]"
+				message="The HTTP Status code is not correct!"
+				doc:name="Assert That Status Code is 200" />
+			<munit-tools:assert-equals
+				doc:name="Payload is Expected"
+				doc:id="3501af4a-0e9f-4ec1-998a-6494eda98400" actual="#[payload]"
+				expected="#[readUrl('classpath://scaffolder/response/get_200_orders_{orderid}_application_json.json')]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test
+		name="get:\orders\(orderId):demo-app-config-400-application\json-FlowTest"
+		description="Verifying functionality of [get:\orders\(orderId):demo-app-config-400-application\json]">
+		<munit:enable-flow-sources>
+			<munit:enable-flow-source
+				value="demo-app-main" />
+			<munit:enable-flow-source
+				value="get:\orders\(orderId):demo-app-config" />
+		</munit:enable-flow-sources>
+		<munit:execution>
+			<set-variable variableName="orderId" value="#['a']"
+				doc:name="orderId" />
+			<http:request config-ref="http-request-configuration"
+				method="GET" path="#['/orders/$(vars.orderId)']">
+				<http:headers><![CDATA[#[{"Accept":"application/json"}]]]></http:headers>
+				<http:response-validator>
+					<http:success-status-code-validator
+						values="400" />
+				</http:response-validator>
+			</http:request>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that
+				expression="#[attributes.statusCode]"
+				is="#[MunitTools::equalTo(400)]"
+				message="The HTTP Status code is not correct!"
+				doc:name="Assert That Status Code is 400" />
+			<munit-tools:assert-equals
+				doc:name="Payload is Expected"
+				doc:id="ad8e9fcd-31bc-47f0-a26e-ca12f6219fa8" actual="#[payload]"
+				expected="#[readUrl('classpath://scaffolder/response/get_400_orders_{orderid}_application_json.json')]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test
+		name="get:\orders\(orderId):demo-app-config-404-application\json-FlowTest"
+		description="Verifying functionality of [get:\orders\(orderId):demo-app-config-404-application\json]">
+		<munit:enable-flow-sources>
+			<munit:enable-flow-source
+				value="demo-app-main" />
+			<munit:enable-flow-source
+				value="get:\orders\(orderId):demo-app-config" />
+		</munit:enable-flow-sources>
+		<munit:execution>
+			<set-variable variableName="orderId" value="#['1']"
+				doc:name="orderId" />
+			<http:request config-ref="http-request-configuration"
+				method="GET" path="#['/invalid-orders/$(vars.orderId)']">
+				<http:headers><![CDATA[#[{"Accept":"application/json"}]]]></http:headers>
+				<http:response-validator>
+					<http:success-status-code-validator
+						values="404" />
+				</http:response-validator>
+			</http:request>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that
+				expression="#[attributes.statusCode]"
+				is="#[MunitTools::equalTo(404)]"
+				message="The HTTP Status code is not correct!"
+				doc:name="Assert That Status Code is 404" />
+			<munit-tools:assert-equals
+				doc:name="Payload is Expected"
+				doc:id="392dc501-b114-4929-b39d-78204245499f" actual="#[payload]"
+				expected="#[readUrl('classpath://scaffolder/response/get_404_orders_{orderid}_application_json.json')]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test
+		name="get:\orders\(orderId):demo-app-config-500-application\json-FlowTest"
+		description="Verifying functionality of [get:\orders\(orderId):demo-app-config-500-application\json]">
+		<munit:enable-flow-sources>
+			<munit:enable-flow-source
+				value="demo-app-main" />
+			<munit:enable-flow-source
+				value="get:\orders\(orderId):demo-app-config" />
+		</munit:enable-flow-sources>
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Database"
+				doc:id="131f7fe7-01cf-409d-95e0-268c7012892e" processor="db:select">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute
+						whereValue="a4ea7d71-31a1-4f2b-b828-17f75a58d7cf"
+						attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="DB:CONNECTIVITY" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<set-variable variableName="orderId" value="#['1']"
+				doc:name="orderId" />
+			<http:request config-ref="http-request-configuration"
+				method="GET" path="#['/orders/$(vars.orderId)']">
+				<http:headers><![CDATA[#[{"Accept":"application/json"}]]]></http:headers>
+				<http:response-validator>
+					<http:success-status-code-validator
+						values="500" />
+				</http:response-validator>
+			</http:request>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that
+				expression="#[attributes.statusCode]"
+				is="#[MunitTools::equalTo(500)]"
+				message="The HTTP Status code is not correct!"
+				doc:name="Assert That Status Code is 500" />
+			<munit-tools:assert-equals
+				doc:name="Payload is Expected"
+				doc:id="7cfa7055-1a62-48ce-8d94-702432b507ee" actual="#[payload]"
+				expected="#[readUrl('classpath://scaffolder/response/get_500_orders_{orderid}_application_json.json')]" />
+		</munit:validation>
+	</munit:test>
+</mule>
