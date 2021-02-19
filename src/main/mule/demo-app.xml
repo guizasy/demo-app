@@ -30,14 +30,11 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 					xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 					xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{message: "Bad request"}]]></ee:set-payload>
+						<ee:set-payload resource="dw/errors/map-post-400-response.dwl" />
 					</ee:message>
 					<ee:variables>
-						<ee:set-variable variableName="httpStatus">400
-						</ee:set-variable>
+						<ee:set-variable variableName="httpStatus"><![CDATA[400
+						]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</on-error-propagate>
@@ -46,14 +43,11 @@ output application/json
 					xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 					xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{message: "Resource not found"}]]></ee:set-payload>
+						<ee:set-payload resource="dw/errors/map-post-404-response.dwl" />
 					</ee:message>
 					<ee:variables>
-						<ee:set-variable variableName="httpStatus">404
-						</ee:set-variable>
+						<ee:set-variable variableName="httpStatus"><![CDATA[404
+						]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</on-error-propagate>
@@ -63,14 +57,11 @@ output application/json
 					xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 					xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{message: "Method not allowed"}]]></ee:set-payload>
+						<ee:set-payload resource="dw/errors/map-post-405-response.dwl" />
 					</ee:message>
 					<ee:variables>
-						<ee:set-variable variableName="httpStatus">405
-						</ee:set-variable>
+						<ee:set-variable variableName="httpStatus"><![CDATA[405
+						]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</on-error-propagate>
@@ -79,14 +70,11 @@ output application/json
 					xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 					xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{message: "Not acceptable"}]]></ee:set-payload>
+						<ee:set-payload resource="dw/errors/map-post-406-response.dwl" />
 					</ee:message>
 					<ee:variables>
-						<ee:set-variable variableName="httpStatus">406
-						</ee:set-variable>
+						<ee:set-variable variableName="httpStatus"><![CDATA[406
+						]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</on-error-propagate>
@@ -96,14 +84,11 @@ output application/json
 					xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 					xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{message: "Unsupported media type"}]]></ee:set-payload>
+						<ee:set-payload resource="dw/errors/map-post-415-response.dwl" />
 					</ee:message>
 					<ee:variables>
-						<ee:set-variable variableName="httpStatus">415
-						</ee:set-variable>
+						<ee:set-variable variableName="httpStatus"><![CDATA[415
+						]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</on-error-propagate>
@@ -112,14 +97,11 @@ output application/json
 					xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 					xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{message: "Not Implemented"}]]></ee:set-payload>
+						<ee:set-payload resource="dw/errors/map-post-501-response.dwl" />
 					</ee:message>
 					<ee:variables>
-						<ee:set-variable variableName="httpStatus">501
-						</ee:set-variable>
+						<ee:set-variable variableName="httpStatus"><![CDATA[501
+						]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</on-error-propagate>
@@ -146,10 +128,7 @@ output application/json
 					xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 					xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{message: "Resource not found"}]]></ee:set-payload>
+						<ee:set-payload resource="dw/errors/map-post-404-response.dwl" />
 					</ee:message>
 					<ee:variables>
 						<ee:set-variable variableName="httpStatus">404
