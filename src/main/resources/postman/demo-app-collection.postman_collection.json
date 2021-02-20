@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "da98b55a-c134-4d43-a034-ab0566ed73cb",
+		"name": "demo-app-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "demo-app-get-order (200 - ok)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code check in Response body\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Status code verification is successful\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response valid body\", function() {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"\tpm.response.to.be.json; \r",
+							"\tconsole.log(\"Response valid body\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"\tjsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.code).to.be.eql(\"SUCCESS\");\r",
+							"\tpm.expect(jsonData.message).to.be.eql(\"Operation Successful\");\r",
+							"    console.log(\"Check response completed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "client_id",
+						"value": "205da967285c4599894e847ff0972003",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "D71CE4CC5DAf450c947a76A6a970ec84",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{demo.host}}:{{demo.port}}/{{demo.app}}/api/{{demo.version}}/orders/{{demo.order.ok}}",
+					"protocol": "https",
+					"host": [
+						"{{demo.host}}"
+					],
+					"port": "{{demo.port}}",
+					"path": [
+						"{{demo.app}}",
+						"api",
+						"{{demo.version}}",
+						"orders",
+						"{{demo.order.ok}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo-app-get-order (200 - record not found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code check in Response body\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Status code verification is successful\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response valid body\", function() {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"\tpm.response.to.be.json; \r",
+							"\tconsole.log(\"Response valid body\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"\tjsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.code).to.be.eql(\"SUCCESS\");\r",
+							"\tpm.expect(jsonData.message).to.be.eql(\"Operation Successful\");\r",
+							"    console.log(\"Check response completed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "client_id",
+						"value": "205da967285c4599894e847ff0972003",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "D71CE4CC5DAf450c947a76A6a970ec84",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{demo.host}}:{{demo.port}}/{{demo.app}}/api/{{demo.version}}/orders/{{demo.order.notfound}}",
+					"protocol": "https",
+					"host": [
+						"{{demo.host}}"
+					],
+					"port": "{{demo.port}}",
+					"path": [
+						"{{demo.app}}",
+						"api",
+						"{{demo.version}}",
+						"orders",
+						"{{demo.order.notfound}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo-app-get-order (400)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code check in Response body\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    console.log(\"Status code verification is successful\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response valid body\", function() {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"\tpm.response.to.be.json; \r",
+							"\tconsole.log(\"Response valid body\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"\tjsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.code).to.be.eql(\"BAD_REQUEST\");\r",
+							"\tpm.expect(jsonData.message).to.be.eql(\"Request is incomplete or contains bad data\");\r",
+							"    console.log(\"Check response completed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "client_id",
+						"value": "205da967285c4599894e847ff0972003",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "D71CE4CC5DAf450c947a76A6a970ec84",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{demo.host}}:{{demo.port}}/{{demo.app}}/api/{{demo.version}}/orders/{{demo.order.invalid}}",
+					"protocol": "https",
+					"host": [
+						"{{demo.host}}"
+					],
+					"port": "{{demo.port}}",
+					"path": [
+						"{{demo.app}}",
+						"api",
+						"{{demo.version}}",
+						"orders",
+						"{{demo.order.invalid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo-app-get-order (404)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code check in Response body\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    console.log(\"Status code verification is successful\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response valid body\", function() {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"\tpm.response.to.be.json; \r",
+							"\tconsole.log(\"Response valid body\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"\tjsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.code).to.be.eql(\"RESOURCE_NOT_FOUND\");\r",
+							"\tpm.expect(jsonData.message).to.be.eql(\"Requested resource not available\");\r",
+							"    console.log(\"Check response completed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "client_id",
+						"value": "205da967285c4599894e847ff0972003",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "D71CE4CC5DAf450c947a76A6a970ec84",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{demo.host}}:{{demo.port}}/{{demo.app}}/api/{{demo.version}}/invalid-orders/{{demo.order.notfound}}",
+					"protocol": "https",
+					"host": [
+						"{{demo.host}}"
+					],
+					"port": "{{demo.port}}",
+					"path": [
+						"{{demo.app}}",
+						"api",
+						"{{demo.version}}",
+						"invalid-orders",
+						"{{demo.order.notfound}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo-app-get-order (405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code check in Response body\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"    console.log(\"Status code verification is successful\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response valid body\", function() {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"\tpm.response.to.be.json; \r",
+							"\tconsole.log(\"Response valid body\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"\tjsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.code).to.be.eql(\"METHOD_NOT_ALLOWED\");\r",
+							"\tpm.expect(jsonData.message).to.be.eql(\"Requested HTTP Method is not allowed/supported\");\r",
+							"    console.log(\"Check response completed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "COPY",
+				"header": [
+					{
+						"key": "client_id",
+						"value": "205da967285c4599894e847ff0972003",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "D71CE4CC5DAf450c947a76A6a970ec84",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{demo.host}}:{{demo.port}}/{{demo.app}}/api/{{demo.version}}/orders/{{demo.order.notfound}}",
+					"protocol": "https",
+					"host": [
+						"{{demo.host}}"
+					],
+					"port": "{{demo.port}}",
+					"path": [
+						"{{demo.app}}",
+						"api",
+						"{{demo.version}}",
+						"orders",
+						"{{demo.order.notfound}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo-app-get-order (406)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code check in Response body\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"    console.log(\"Status code verification is successful\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response valid body\", function() {\r",
+							"\tpm.response.to.be.withBody;\r",
+							"\tpm.response.to.be.json; \r",
+							"\tconsole.log(\"Response valid body\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"\tjsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.code).to.be.eql(\"NOT_ACCEPTABLE\");\r",
+							"\tpm.expect(jsonData.message).to.be.eql(\"Requested Accept (Response Media Type) is not supported\");\r",
+							"    console.log(\"Check response completed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/atom+xml",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "205da967285c4599894e847ff0972003",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "D71CE4CC5DAf450c947a76A6a970ec84",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{demo.host}}:{{demo.port}}/{{demo.app}}/api/{{demo.version}}/orders/{{demo.order.ok}}",
+					"protocol": "https",
+					"host": [
+						"{{demo.host}}"
+					],
+					"port": "{{demo.port}}",
+					"path": [
+						"{{demo.app}}",
+						"api",
+						"{{demo.version}}",
+						"orders",
+						"{{demo.order.ok}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": "",
+			"disabled": true
+		}
+	]
+}
